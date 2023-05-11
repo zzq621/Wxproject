@@ -19,9 +19,9 @@ weConfig:
   corpid: ww0f253aee6ddf3b1f # 企业id
   agentId: 1000002 # 应用Id
   weChatApiAddr: https://qyapi.weixin.qq.com # 企业微信推送api地址
-#  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #客服聊天应用密码
-#  weApiRCallToken: ku1ZKl # 客服聊天调用token
-#  weApiEncodingKey: 3Js8bKOUHHBQpIR2FfkqQoFaQkT5p2YVBkYpEOrLRCN # 客服聊天加解密key
-  corpSecret: Big4q_XjIa5CCB0gNwPN96kozMhB6jWUIrVZlge0xug   #企业内部应用密码
-  weApiRCallToken: PQnt5zaqKKvqP2WOdPsR5HmfmYa  #企业内部token
-  weApiEncodingKey: OJ2clh5QhwvpSXf2VOzJWzaI3xFom6fD8G35BOioGrC   #企业内部key
+  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #客服聊天应用密码
+  weApiRCallToken: ku1ZKl # 客服聊天调用token
+  weApiEncodingKey: 3Js8bKOUHHBQpIR2FfkqQoFaQkT5p2YVBkYpEOrLRCN # 客服聊天加解密key
+#  corpSecret: Big4q_XjIa5CCB0gNwPN96kozMhB6jWUIrVZlge0xug   #企业内部应用密码
+#  weApiRCallToken: PQnt5zaqKKvqP2WOdPsR5HmfmYa  #企业内部token
+#  weApiEncodingKey: OJ2clh5QhwvpSXf2VOzJWzaI3xFom6fD8G35BOioGrC   #企业内部key

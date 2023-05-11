@@ -11,9 +11,8 @@ import (
 	"github.com/sbzhu/weworkapi_golang/wxbizmsgcrypt"
 )
 
-var wxCrypt *wxbizmsgcrypt.WXBizMsgCrypt
-
 // var wkCrypt *wxbizmsgcrypt.WXBizMsgCrypt
+var wxCrypt *wxbizmsgcrypt.WXBizMsgCrypt
 var WeComApp *work.Work
 
 func init() {
