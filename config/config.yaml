@@ -19,6 +19,6 @@ weConfig:
   corpid: ww0f253aee6ddf3b1f # 企业id
   corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #应用密码
   agentId: 1000002 # 应用Id
-  weApiRCallToken: msCoMWAo4KNAZKGu # 调用token
-  weApiEncodingKey: 3oVseDx6agkYmIDWj9KIljAADVOjKsdY6Vmu3fSLIe9 # jiami
+  weApiRCallToken: 4R3zE6XMQH # 调用token
+  weApiEncodingKey: 4rr8IBVzskgIuPvv1B44MxGrfbL3xjkkizoFsqnrLQe # jiami
   weChatApiAddr: https://qyapi.weixin.qq.com # 企业微信推送api地址
