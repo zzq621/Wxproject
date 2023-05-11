@@ -1,6 +1,6 @@
 systemConf:
   #proxy: xxxx# http代理地址
-  port: 50008 # 允许端口
+  port: 8010 # 允许端口
   log: info # panic, fatal, error, warn, info, debug, trace
   callBackUrl: http://127.0.0.1 # 回调地址
   msgMode: text # markdown 或者 text
@@ -17,8 +17,8 @@ gptConfig:
   botApiUrl: xxxx
 weConfig:
   corpid: ww0f253aee6ddf3b1f # 企业id
-  corpSecret: Big4q_XjIa5CCB0gNwPN96kozMhB6jWUIrVZlge0xug #应用密码
+  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #应用密码
   agentId: 1000002 # 应用Id
-  weApiRCallToken: PQnt5zaqKKvqP2WOdPsR5HmfmYa # 调用token
-  weApiEncodingKey: OJ2clh5QhwvpSXf2VOzJWzaI3xFom6fD8G35BOioGrC # jiami
+  weApiRCallToken: ku1ZKl # 调用token
+  weApiEncodingKey: 3Js8bKOUHHBQpIR2FfkqQoFaQkT5p2YVBkYpEOrLRCN # jiami
   weChatApiAddr: https://qyapi.weixin.qq.com # 企业微信推送api地址
