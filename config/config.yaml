@@ -17,8 +17,8 @@ gptConfig:
   botApiUrl: xxxx
 weConfig:
   corpid: ww0f253aee6ddf3b1f # 企业id
-  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #应用密码
+  corpSecret: Big4q_XjIa5CCB0gNwPN96kozMhB6jWUIrVZlge0xug #应用密码
   agentId: 1000002 # 应用Id
-  weApiRCallToken: 4R3zE6XMQH # 调用token
-  weApiEncodingKey: 4rr8IBVzskgIuPvv1B44MxGrfbL3xjkkizoFsqnrLQe # jiami
+  weApiRCallToken: PQnt5zaqKKvqP2WOdPsR5HmfmYa # 调用token
+  weApiEncodingKey: OJ2clh5QhwvpSXf2VOzJWzaI3xFom6fD8G35BOioGrC # jiami
   weChatApiAddr: https://qyapi.weixin.qq.com # 企业微信推送api地址
