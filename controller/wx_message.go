@@ -44,7 +44,6 @@ func WxChatCommand(c *gin.Context) {
 	}
 	// 提前向微信返回成功接受，防止微信多次回调
 	c.JSON(http.StatusOK, "")
-	//
 	// 异步处理用户请求
 	go func() {
 		err = xml.Unmarshal(userDataDecrypt, &userData)
@@ -58,11 +57,11 @@ func WxChatCommand(c *gin.Context) {
 		sdata := make([]map[string]string, 0)
 		sdata = append(sdata, prompt)
 		//接入fast_gpt的api
-		reqData := utils.HttpRequest("https://bot.botai.ai/api/openapi/chat/vectorGpt", dto.VectorData{
-			ModelId:  "645311bf8a5dbd2eb7eebc6a",
+		reqData := utils.HttpRequest(config.GetGptConf().BotApiUrl, dto.VectorData{
+			ModelId:  config.GetGptConf().ModelId,
 			IsStream: false,
 			Prompts:  sdata,
-		}, "645309008a5dbd2eb7eebba9-jfjo9cnvqr6p3lh34xp87", "POST")
+		}, config.GetGptConf().Apikey, "POST")
 		xlog.Log.Info("fast_gpt返回的响应数据:", reqData)
 		//返回微信信息
 		wxresp := utils.SendTextToUser(userData.FromUsername, reqData)
@@ -71,24 +70,16 @@ func WxChatCommand(c *gin.Context) {
 }
 
 func TalkWeixin(c *gin.Context) {
-	//verifyMsgSign := c.Query("msg_signature")
-	//verifyTimestamp := c.Query("timestamp")
-	//verifyNonce := c.Query("nonce")
-	//bodyBytes, _ := ioutil.ReadAll(c.Request.Body)
-	//data := utils.DeCryptMsg(bodyBytes, verifyMsgSign, verifyTimestamp, verifyNonce)
-	fmt.Println("进来了。。。001")
 	var dataStuc dto.CallBackData
 	if err := c.ShouldBindQuery(&dataStuc); err != nil {
 		xlog.Log.Errorf("绑定回调Query错误：%v", err)
 	}
 	// 解析请求体
 	raw, err := c.GetRawData()
-	fmt.Println("解析数据。。。002", raw)
 	if err != nil {
 		xlog.Log.WithError(err).Error("解析微信回调参数失败")
 		return
 	}
-	//userData := dto.MsgContent{}
 	userDataDecrypt := utils.DeCryptMsg(raw, dataStuc.MsgSignature, dataStuc.TimeStamp, dataStuc.Nonce)
 	var weixinUserAskMsg dto.WeixinUserAskMsg
 	err = xml.Unmarshal(userDataDecrypt, &weixinUserAskMsg)
@@ -111,11 +102,6 @@ func TalkWeixin(c *gin.Context) {
 }
 
 func accessToken() (string, error) {
-	//var tokenCacheKey = "tokenCache"
-	//data, found := tokenCache.Get(tokenCacheKey)
-	//if found {
-	//	return fmt.Sprintf("%v", data), nil
-	//}
 	urlBase := "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s"
 	url := fmt.Sprintf(urlBase, config.GetWechatConf().Corpid, config.GetWechatConf().CorpSecret)
 	method := "GET"
@@ -141,7 +127,6 @@ func accessToken() (string, error) {
 	var accessToken dto.AccessToken
 	json.Unmarshal([]byte(s), &accessToken)
 	token := accessToken.AccessToken
-	//tokenCache.Set(tokenCacheKey, token, 5*time.Minute)
 	return token, nil
 }
 
@@ -153,7 +138,6 @@ func getMsgs(accessToken, msgToken string) (dto.MsgRet, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, payload)
 	if err != nil {
-		fmt.Println(err)
 		return msgRet, err
 	}
 	req.Header.Add("Content-Type", "application/json")
@@ -166,7 +150,6 @@ func getMsgs(accessToken, msgToken string) (dto.MsgRet, error) {
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return msgRet, err
 	}
 	json.Unmarshal([]byte(string(body)), &msgRet)
@@ -174,7 +157,6 @@ func getMsgs(accessToken, msgToken string) (dto.MsgRet, error) {
 }
 
 func handleMsgRet(msgRet dto.MsgRet) {
-	fmt.Println(msgRet)
 	size := len(msgRet.MsgList)
 	if size < 1 {
 		return
@@ -186,47 +168,19 @@ func handleMsgRet(msgRet dto.MsgRet) {
 	if content == "" {
 		return
 	}
-	//
 	prompt := make(map[string]string)
 	prompt["obj"] = "Human"
 	prompt["value"] = content
 	sdata := make([]map[string]string, 0)
 	sdata = append(sdata, prompt)
 	//接入fast_gpt的api
-	reqData := utils.HttpRequest("https://bot.botai.ai/api/openapi/chat/vectorGpt", dto.VectorData{
-		ModelId:  "645311bf8a5dbd2eb7eebc6a",
+	reqData := utils.HttpRequest(config.GetGptConf().BotApiUrl, dto.VectorData{
+		ModelId:  config.GetGptConf().ModelId,
 		IsStream: false,
 		Prompts:  sdata,
-	}, "645309008a5dbd2eb7eebba9-jfjo9cnvqr6p3lh34xp87", "POST")
+	}, config.GetGptConf().Apikey, "POST")
 	TalkToUser(userId, kfId, content, reqData)
 }
-
-//func AskOnConversation(question, conversationId string, size int) (string, error) {
-//	var messages = []gptgo.ChatCompletionMessage{}
-//	//key := fmt.Sprintf("cache:conversation:%s", conversationId)
-//	//data, found := conversationCache.Get(key)
-//	//if found {
-//	//	messages = data.([]gptgo.ChatCompletionMessage)
-//	//}
-//	messages = append(messages, gptgo.ChatCompletionMessage{
-//		Role:    "system",
-//		Content: question,
-//	})
-//	fmt.Println(messages)
-//	pivot := size
-//	if pivot > len(messages) {
-//		pivot = len(messages)
-//	}
-//	messages = messages[len(messages)-pivot:]
-//	conversationCache.Set(key, messages, 12*time.Hour)
-//	chat := NewGPT(openAiKey, conversationId)
-//	defer chat.Close()
-//	answer, err := chat.Chat(messages)
-//	if err != nil {
-//		fmt.Print(err.Error())
-//	}
-//	return answer, err
-//}
 
 func TalkToUser(external_userid, open_kfid, ask, content string) {
 	reply := dto.ReplyMsg{

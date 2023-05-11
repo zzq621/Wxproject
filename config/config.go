@@ -42,8 +42,8 @@ type LoggerConf struct {
 // GptConfig chatGpt api key
 type GptConfig struct {
 	Apikey    string `json:"apikey" yaml:"apikey"`
-	ModelId   string `json:"model_id" yaml:"model_id"`
-	BotApiUrl string `json:"bot_api_url" yaml:"bot_api_url"`
+	ModelId   string `json:"modelId" yaml:"modelId"`
+	BotApiUrl string `json:"botApiUrl" yaml:"botApiUrl"`
 }
 
 // WeChatConfig 微信配置文件
@@ -60,6 +60,12 @@ type WeChatConfig struct {
 	WeApiEncodingKey string `json:"weApiEncodingKey" yaml:"weApiEncodingKey"`
 	// 企业微信API地址
 	WeChatApiAddr string `json:"weChatApiAddr" yaml:"weChatApiAddr"`
+	////企业内部应用密码
+	//WkCorpSecret string `json:"wkCorpSecret" yaml:"wkCorpSecret"`
+	////企业内部token
+	//WkApiRCallToken string `json:"wkApiRCallToken" yaml:"wkApiRCallToken"`
+	////企业内部key
+	//WkApiEncodingKey string `json:"wkApiEncodingKey" yaml:"wkApiEncodingKey"`
 }
 
 // LoadConf  加载配置文件
