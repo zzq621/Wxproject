@@ -1,0 +1,24 @@
+systemConf:
+  proxy: xxxx# http代理地址
+  port: 50008 # 允许端口
+  log: info # panic, fatal, error, warn, info, debug, trace
+  callBackUrl: http://127.0.0.1 # 回调地址
+  msgMode: text # markdown 或者 text
+#  logConf:
+#    logLevel: "debug"
+#    logOutPutMode: console #console file both
+#    logOutPutPath: "./log/crop-bot-run.log"
+#    logFileDateFmt: "2006-01-02 15:04:05"
+#    logFileRotationCount: 10
+#    logFormatter: text # text json
+gptConfig:
+  apikey: xxxx # openapi key
+  modelId: xxxxx # 对话模型
+  botApiUrl: xxxx
+weConfig:
+  corpid: ww0f253aee6ddf3b1f # 企业id
+  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #应用密码
+  agentId: 1000002 # 应用Id
+  weApiRCallToken: msCoMWAo4KNAZKGu # 调用token
+  weApiEncodingKey: 3oVseDx6agkYmIDWj9KIljAADVOjKsdY6Vmu3fSLIe9 # jiami
+  weChatApiAddr: https://qyapi.weixin.qq.com # 企业微信推送api地址
