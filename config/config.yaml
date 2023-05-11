@@ -4,13 +4,13 @@ systemConf:
   log: info # panic, fatal, error, warn, info, debug, trace
   callBackUrl: http://127.0.0.1 # 回调地址
   msgMode: text # markdown 或者 text
-#  logConf:
-#    logLevel: "debug"
-#    logOutPutMode: console #console file both
-#    logOutPutPath: "./log/crop-bot-run.log"
-#    logFileDateFmt: "2006-01-02 15:04:05"
-#    logFileRotationCount: 10
-#    logFormatter: text # text json
+  logConf:
+    logLevel: "debug"
+    logOutPutMode: console #console file both
+    logOutPutPath: "./log/crop-bot-run.log"
+    logFileDateFmt: "2006-01-02 15:04:05"
+    logFileRotationCount: 10
+    logFormatter: text # text json
 gptConfig:
   apikey: xxxx # openapi key
   modelId: xxxxx # 对话模型

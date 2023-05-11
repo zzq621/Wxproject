@@ -12,14 +12,12 @@ func RegistryWXRouter(r *gin.Engine) {
 	{
 		gptApi.GET("", controller.VerifyCallBack)
 		gptApi.POST("", controller.WxChatCommand)
-		//gptApi.GET("", controller.WxChatCommand)
 	}
 
 	botApi := r.Group("/bot")
 	{
 		botApi.GET("", controller.VerifyCallBack)
 		botApi.POST("", controller.TalkWeixin)
-		//gptApi.GET("", controller.WxChatCommand)
 
 	}
 }
