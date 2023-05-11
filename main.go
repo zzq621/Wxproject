@@ -2,6 +2,7 @@ package main
 
 import (
 	"WxProject/config"
+	"WxProject/middleware"
 	"WxProject/routers"
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +12,7 @@ func loadGin() *gin.Engine {
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 	// 使用中间件
-	//r.Use(middleware.LoggerToFile())
+	r.Use(middleware.LoggerToFile())
 	// 注册路由
 	routers.LoadRouters(r)
 	//dao.LoadDatabase()

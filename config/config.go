@@ -22,7 +22,7 @@ type GlobalConf struct {
 // SystemConf 系统配置
 type SystemConf struct {
 	// Proxy 代理地址
-	Proxy       string     `json:"proxy,omitempty" yaml:"proxy"`
+	//Proxy       string     `json:"proxy,omitempty" yaml:"proxy"`
 	Port        string     `json:"port" yaml:"port"`
 	CallBackUrl string     `json:"callBackUrl"`
 	MsgMode     string     `json:"msgMode"`
