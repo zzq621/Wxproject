@@ -5,7 +5,7 @@ systemConf:
   callBackUrl: http://127.0.0.1 # 回调地址
   msgMode: text # markdown 或者 text
   logConf:
-    logLevel: "debug"
+    logLevel: "error"
     logOutPutMode: console #console file both
     logOutPutPath: "./log/crop-bot-run.log"
     logFileDateFmt: "2006-01-02 15:04:05"

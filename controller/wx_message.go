@@ -52,9 +52,9 @@ func WxChatCommand(c *gin.Context) {
 			return
 		}
 		prompt := make(map[string]string)
+		sdata := make([]map[string]string, 0)
 		prompt["obj"] = "Human"
 		prompt["value"] = userData.Content
-		sdata := make([]map[string]string, 0)
 		sdata = append(sdata, prompt)
 		//接入fast_gpt的api
 		reqData := utils.HttpRequest(config.GetGptConf().BotApiUrl, dto.VectorData{
@@ -84,21 +84,19 @@ func TalkWeixin(c *gin.Context) {
 	var weixinUserAskMsg dto.WeixinUserAskMsg
 	err = xml.Unmarshal(userDataDecrypt, &weixinUserAskMsg)
 	if err != nil {
-		fmt.Println("err:  " + err.Error())
+		xlog.Log.Errorf("反序列化数据错误：%v", err)
 	}
 	accessToken, err := accessToken()
 	if err != nil {
-		c.JSON(500, "ok")
+		xlog.Log.Errorf("获取accesstoken错误：%v", err)
 		return
 	}
 	msgToken := weixinUserAskMsg.Token
 	msgRet, err := getMsgs(accessToken, msgToken)
 	if err != nil {
-		c.JSON(500, "ok")
 		return
 	}
 	go handleMsgRet(msgRet)
-	c.JSON(200, "ok")
 }
 
 func accessToken() (string, error) {
@@ -108,19 +106,15 @@ func accessToken() (string, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
-		fmt.Println(err)
 		return "", err
 	}
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
 		return "", err
 	}
 	defer res.Body.Close()
-
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
 		return "", err
 	}
 	s := string(body)
@@ -169,9 +163,9 @@ func handleMsgRet(msgRet dto.MsgRet) {
 		return
 	}
 	prompt := make(map[string]string)
+	sdata := make([]map[string]string, 0)
 	prompt["obj"] = "Human"
 	prompt["value"] = content
-	sdata := make([]map[string]string, 0)
 	sdata = append(sdata, prompt)
 	//接入fast_gpt的api
 	reqData := utils.HttpRequest(config.GetGptConf().BotApiUrl, dto.VectorData{
@@ -179,7 +173,7 @@ func handleMsgRet(msgRet dto.MsgRet) {
 		IsStream: false,
 		Prompts:  sdata,
 	}, config.GetGptConf().Apikey, "POST")
-	TalkToUser(userId, kfId, content, reqData)
+	TalkToUser(userId, kfId, content, strings.TrimSpace(reqData))
 }
 
 func TalkToUser(external_userid, open_kfid, ask, content string) {
@@ -206,27 +200,17 @@ func callTalk(reply dto.ReplyMsg, accessToken string) error {
 		return err
 	}
 	reqBody := string(data)
-	fmt.Println(reqBody)
 	payload := strings.NewReader(reqBody)
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, payload)
-
 	if err != nil {
 		return err
 	}
 	req.Header.Add("Content-Type", "application/json")
-
 	res, err := client.Do(req)
 	if err != nil {
 		return err
 	}
 	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	s := string(body)
-	fmt.Println(s)
 	return nil
 }
