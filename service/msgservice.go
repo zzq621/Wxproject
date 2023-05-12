@@ -6,10 +6,14 @@ import (
 	"WxProject/utils"
 	"encoding/json"
 	"fmt"
+	"github.com/patrickmn/go-cache"
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 )
+
+var retryCache = cache.New(60*time.Minute, 10*time.Minute)
 
 func AccessToken() (string, error) {
 	urlBase := "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s"
@@ -128,4 +132,15 @@ func callTalk(reply dto.ReplyMsg, accessToken string) error {
 	}
 	defer res.Body.Close()
 	return nil
+}
+
+func IsRetry(signature string) bool {
+	var base = "retry:signature:%s"
+	key := fmt.Sprintf(base, signature)
+	_, found := retryCache.Get(key)
+	if found {
+		return true
+	}
+	retryCache.Set(key, "1", 1*time.Minute)
+	return false
 }
