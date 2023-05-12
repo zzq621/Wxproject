@@ -87,8 +87,6 @@ func TalkWeixin(c *gin.Context) {
 		xlog.Log.Errorf("反序列化数据错误：%v", err)
 		return
 	}
-	//提前向微信返回成功接受，防止微信多次回调
-	c.JSON(http.StatusOK, "")
 	accessToken, err := accessToken()
 	if err != nil {
 		xlog.Log.Errorf("获取accesstoken错误：%v", err)
@@ -100,6 +98,8 @@ func TalkWeixin(c *gin.Context) {
 		return
 	}
 	go handleMsgRet(msgRet)
+	//提前向微信返回成功接受，防止微信多次回调
+	c.JSON(http.StatusOK, "ok")
 }
 
 func accessToken() (string, error) {
