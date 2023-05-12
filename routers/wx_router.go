@@ -2,18 +2,16 @@ package routers
 
 import (
 	"WxProject/controller"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func RegistryWXRouter(r *gin.Engine) {
-	gptApi := r.Group("/gpt")
-	{
-		gptApi.GET("", controller.VerifyCallBack)
-		gptApi.POST("", controller.WxChatCommand)
-	}
-
+	//gptApi := r.Group("/gpt")
+	//{
+	//	gptApi.GET("", controller.VerifyCallBack)
+	//	gptApi.POST("", controller.WxChatCommand)
+	//}
 	botApi := r.Group("/bot")
 	{
 		botApi.GET("", controller.VerifyCallBack)
