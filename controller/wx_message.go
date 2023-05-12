@@ -176,6 +176,7 @@ func handleMsgRet(msgRet dto.MsgRet) {
 		IsStream: false,
 		Prompts:  sdata,
 	}, config.GetGptConf().Apikey, "POST")
+	fmt.Println("响应数据reqData：", reqData)
 	TalkToUser(userId, kfId, content, strings.TrimSpace(reqData))
 }
 
