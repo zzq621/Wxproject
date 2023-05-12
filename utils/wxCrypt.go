@@ -5,13 +5,13 @@ import (
 	"WxProject/dto"
 	"WxProject/utils/xlog"
 	"context"
-	"fmt"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/work"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/work/message/request"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/work/message/response"
 	"github.com/sbzhu/weworkapi_golang/wxbizmsgcrypt"
 )
 
+// var wkCrypt *wxbizmsgcrypt.WXBizMsgCrypt
 var wxCrypt *wxbizmsgcrypt.WXBizMsgCrypt
 var WeComApp *work.Work
 
@@ -42,6 +42,7 @@ func LoadWeComAppConf() {
 func LoadWxUtils() {
 	xlog.Log.Info("初始化微信工具包......")
 	wxCrypt = wxbizmsgcrypt.NewWXBizMsgCrypt(config.GetWechatConf().WeApiRCallToken, config.GetWechatConf().WeApiEncodingKey, config.GetWechatConf().Corpid, wxbizmsgcrypt.XmlType)
+	//wkCrypt = wxbizmsgcrypt.NewWXBizMsgCrypt(config.GetWechatConf().WkApiRCallToken, config.GetWechatConf().WkApiEncodingKey, config.GetWechatConf().Corpid, wxbizmsgcrypt.XmlType)
 }
 
 // GetReVerifyCallBack 从微信回调解析请求数据
@@ -59,7 +60,6 @@ func GetReVerifyCallBack(q dto.CallBackParams) []byte {
 func DeCryptMsg(cryptMsg []byte, msgSignature, timeStamp, nonce string) []byte {
 	msg, cryptErr := wxCrypt.DecryptMsg(msgSignature, timeStamp, nonce, cryptMsg)
 	if cryptErr != nil {
-		fmt.Println("解析数据。。。003", cryptErr)
 		xlog.Log.Errorf("回调消息解密错误：%v", cryptErr)
 		return nil
 	}

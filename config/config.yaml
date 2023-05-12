@@ -1,24 +1,27 @@
 systemConf:
   #proxy: xxxx# http代理地址
   port: 8010 # 允许端口
-  log: info # panic, fatal, error, warn, info, debug, trace
+  log: error # panic, fatal, error, warn, info, debug, trace
   callBackUrl: http://127.0.0.1 # 回调地址
   msgMode: text # markdown 或者 text
   logConf:
-    logLevel: "debug"
+    logLevel: "error"
     logOutPutMode: console #console file both
     logOutPutPath: "./log/crop-bot-run.log"
     logFileDateFmt: "2006-01-02 15:04:05"
     logFileRotationCount: 10
     logFormatter: text # text json
 gptConfig:
-  apikey: xxxx # openapi key
-  modelId: xxxxx # 对话模型
-  botApiUrl: xxxx
+  apikey: 645309008a5dbd2eb7eebba9-jfjo9cnvqr6p3lh34xp87 # openapi key
+  modelId: 645311bf8a5dbd2eb7eebc6a # 对话模型
+  botApiUrl: https://bot.botai.ai/api/openapi/chat/vectorGpt
 weConfig:
   corpid: ww0f253aee6ddf3b1f # 企业id
-  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #应用密码
   agentId: 1000002 # 应用Id
-  weApiRCallToken: ku1ZKl # 调用token
-  weApiEncodingKey: 3Js8bKOUHHBQpIR2FfkqQoFaQkT5p2YVBkYpEOrLRCN # jiami
   weChatApiAddr: https://qyapi.weixin.qq.com # 企业微信推送api地址
+  corpSecret: ieSSH4ghx-wS1fGFipbBUcDE6gjdWgVoKp1p-BddMw4 #客服聊天应用密码
+  weApiRCallToken: ku1ZKl # 客服聊天调用token
+  weApiEncodingKey: 3Js8bKOUHHBQpIR2FfkqQoFaQkT5p2YVBkYpEOrLRCN # 客服聊天加解密key
+#  corpSecret: Big4q_XjIa5CCB0gNwPN96kozMhB6jWUIrVZlge0xug   #企业内部应用密码
+#  weApiRCallToken: PQnt5zaqKKvqP2WOdPsR5HmfmYa  #企业内部token
+#  weApiEncodingKey: OJ2clh5QhwvpSXf2VOzJWzaI3xFom6fD8G35BOioGrC   #企业内部key
