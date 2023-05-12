@@ -176,7 +176,9 @@ func handleMsgRet(msgRet dto.MsgRet) {
 		IsStream: false,
 		Prompts:  sdata,
 	}, config.GetGptConf().Apikey, "POST")
-	fmt.Println("响应数据reqData：", reqData)
+	if reqData == "" {
+		reqData = "抱歉，你的问题不在知识库中。。。"
+	}
 	TalkToUser(userId, kfId, content, strings.TrimSpace(reqData))
 }
 
