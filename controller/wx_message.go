@@ -67,6 +67,9 @@ func WxChatCommand(c *gin.Context) {
 }
 
 func TalkWeixin(c *gin.Context) {
+	//提前向微信返回成功接受，防止微信多次回调
+	c.JSON(http.StatusOK, "ok")
+
 	var dataStuc dto.CallBackData
 	if err := c.ShouldBindQuery(&dataStuc); err != nil {
 		xlog.Log.Errorf("绑定回调Query错误：%v", err)
@@ -95,6 +98,4 @@ func TalkWeixin(c *gin.Context) {
 		return
 	}
 	go service.HandleMsgRet(msgRet)
-	//提前向微信返回成功接受，防止微信多次回调
-	c.JSON(http.StatusOK, "ok")
 }
