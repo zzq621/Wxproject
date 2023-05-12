@@ -96,6 +96,8 @@ func TalkWeixin(c *gin.Context) {
 	if err != nil {
 		return
 	}
+	//提前向微信返回成功接受，防止微信多次回调
+	c.JSON(http.StatusOK, "")
 	go handleMsgRet(msgRet)
 }
 
